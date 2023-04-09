@@ -1,30 +1,21 @@
 import React from "react";
 import { app } from "./fb";
 import './stylesheets/Home.css';
+import { Link, Switch, BrowserRouter } from "react-router-dom";
 
 
-const Home = () =>{
+const Main = () =>{
 
   const signOut = () =>{
     app.auth().signOut()
   }
 
-  const openMap = () =>{
-    console.log('map')
-  }
-
-  const openPanel = () =>{
-    console.log('panel')
-  }
-
   return(
 
     <div className="general">
-      <div className="supView">
-        <h1 className="statText"> Bienvenido </h1>
-        <button className="signOutButton" onClick={signOut}> Cerrar sesión </button>
-      </div>
+
       <div className="principal">
+
         <a href="/panel/">;
             <div className="layout">
                 <img 
@@ -56,4 +47,4 @@ const Home = () =>{
   )
 }
 
-export default Home;
+export default Main;

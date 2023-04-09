@@ -1,0 +1,30 @@
+.supView{
+    width: 97%;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: Lato, sans-serif;
+    align-items: center;
+    justify-content: left;
+    padding: 20px;
+    background-color: rgb(2, 2, 41);
+}
+
+.statText{
+    color: #fff;
+    font-size: 20px;
+}
+
+.signOutButton{
+    background-color: #236b94;
+    border: #236b94;
+    color: #fff;
+    padding: 5px 5px;
+    border-radius: 10px;
+    font-family: Lato, sans-serif;
+    font-size: 15px;
+    margin-top: 15px;
+    margin-right: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}

@@ -3,7 +3,10 @@ import {app} from "./fb";
 import Home from "./Home";
 import Login from "./Login";
 import './stylesheets/App.css';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
+import {Switch} from 'react-router-dom'
+import Map from './Map'
+import Panel from './Panel'
 
 function App() {
 
@@ -15,19 +18,19 @@ function App() {
   }, []);
   
   return (
-  <div className="App">
-    <> {user ? <Home /> : <Login setUser = {setUser} />} </>
+    <div className="App">
 
-    <>
-      <Router>
+      <BrowserRouter>
         <Switch>
-          <Route path='/map' component={Map}></Route>
-          <Route path='/panel' component={Panel}></Route>
+          <Route exact path ='/' render ={ ()  => { return user ? <Home /> : <Login setUser = {setUser} /> }} />
+          <Route exact path='/map/' render ={ ()  => { return user ? <Map />: <Login /> }} />
+          <Route exact path='/panel/' render ={ ()  => { return user ? <Panel />: <Login /> }} />
         </Switch>
-      </Router>
-    </>
-    
-  </div>
+        
+      </BrowserRouter>
+      
+
+    </div>
   )
   
 }
