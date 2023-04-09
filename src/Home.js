@@ -25,7 +25,7 @@ const Home = () =>{
         <button className="signOutButton" onClick={signOut}> Cerrar sesión </button>
       </div>
       <div className="principal">
-        <a href="/panel/">;
+        <a href="/panel/">
             <div className="layout">
                 <img 
                     className ='imagen'
@@ -37,7 +37,7 @@ const Home = () =>{
             </div>
         </a>
 
-        <a href="/map/">;
+        <a href="/map/">
             <div className="layout">
                 <img 
                     className ='imagen'

@@ -2,24 +2,24 @@ import React from "react";
 import { app } from "./fb";
 import './stylesheets/Panel.css';
 
-const Panel = () =>{
-  
+const AddUser = () =>{
+    
       return(
         <div className="general">
           <div className="supView">
-              <h1 className="statText"> Panel de control </h1>
-              <a href="/">
+              <h1 className="statText"> Añadir usuario </h1>
+              <a href="/panel">
                 <button className="signOutButton"> Regresar </button>
               </a>
           </div>
 
-          <a href="/panel/add_user">
-                <button className="addButton"> Añadir usuario </button>
-          </a>
+          <form>
+
+          </form>
     
         </div>
           
     )
 }
 
-export default Panel
+export default AddUser
