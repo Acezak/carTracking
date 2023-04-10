@@ -66,10 +66,10 @@
     margin: 30px;
 }
 
-label{
+.textButton{
     font-family: Lato, sans-serif;
     font-size: 45px;
-    color: #fff;
+    color: #ffffff;
     font-weight: bolder;
 }
 

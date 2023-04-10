@@ -1,17 +1,40 @@
 import React from "react";
 import './stylesheets/Auth.css'
 import {app} from "./fb"
+import { getFirestore, doc, getDoc } from'firebase/firestore'
+
+const firestore = getFirestore(app)
 
 const Login = (props) => { 
+
+  async function getType(email){
+    const docuRef = doc(firestore, 'users', email);
+    const docu = await getDoc(docuRef);
+    if (docu.exists()){
+      const info = docu.data();
+      const uType = info.userType;
+      return uType;
+    } else{
+      alert('Usuario no registrado o contraseña inválida')
+      
+    }
+    
+  }
   
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const email = e.target.email.value
     const password = e.target.password.value
-    app.auth().signInWithEmailAndPassword(email,password).then((firebaseUser) =>{
-      props.setUser(firebaseUser);
+    const uType = await getType(email);
 
-    })
+    if (uType == "Admin"){
+      app.auth().signInWithEmailAndPassword(email,password).then((firebaseUser) =>{
+        props.setUser(firebaseUser);
+  
+      })
+    } else{
+      alert('Usted no tiene permisos de administrador, utilice la app móvil')
+    }
   }
 
   return(

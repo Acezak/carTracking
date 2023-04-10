@@ -32,7 +32,7 @@ const Home = () =>{
                     src={require('./images/panel.png')}
                     alt='imgPanel'
                 />
-                <label>Panel de control</label>
+                <label className="textButton">Panel de control</label>
 
             </div>
         </a>
@@ -44,7 +44,7 @@ const Home = () =>{
                     src={require('./images/ubicacion.png')}
                     alt='imgMap'
                 />
-                <label>Mapa</label>
+                <label className="textButton">Mapa</label>
 
             </div>
         </a>     

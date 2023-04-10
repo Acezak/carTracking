@@ -1,14 +1,14 @@
 // Libraries
 import React from "react";
 import { app } from "./fb";
-import { getFirestore, doc, setDoc } from'firebase/firestore'
+import { getFirestore, doc, setDoc, getDoc, deleteDoc } from'firebase/firestore'
 import './stylesheets/AddUser.css';
 
 //Init vars
 const firestore = getFirestore(app)
 
 // Component
-const AddUser = (props) =>{
+const ModifyUser = (props) =>{
 
   //Registrer function
   const submitHandler = async (e) => {
@@ -17,20 +17,46 @@ const AddUser = (props) =>{
     
     //Register variables
     const email = e.target.email.value
-    const password = e.target.password.value
     const name = e.target.name.value
     const cc = e.target.cc.value
     const userType = e.target.userType.value
 
-    //User account with email and password
-    const userInfo = app.auth().createUserWithEmailAndPassword(email,password).then((firebaseUser) =>{
+    
 
-    })
+    const docuRef = doc(firestore, 'users', email);
+    const docu = await getDoc(docuRef);
 
-    const docuRef = doc(firestore, `users/${email}`);
-    setDoc(docuRef,{name:name, cc:cc, userType:userType, email:email});
+    if (docu.exists()){
+      await setDoc(docuRef, {
+        name:name,
+        cc:cc,
+        userType:userType
+      },{merge:true});
+    } else{
+      alert('El usuario no existe, realice primero su registro')
+      
+    }
 
-      }
+  }
+
+  const deleteRegister = async (e) => {
+
+    e.preventDefault();
+    
+    //Register variables
+    const email = e.target.email.value
+
+    const docuRef = doc(firestore, 'users', email);
+    const docu = await getDoc(docuRef);
+
+    if (docu.exists()){
+      await deleteDoc(docuRef);
+    } else{
+      alert('El usuario no existe')
+      
+    }
+
+  }
     
   return(
     <div className="general">
@@ -47,6 +73,14 @@ const AddUser = (props) =>{
           <form onSubmit={submitHandler}>
 
           <div className="item-container">
+
+              <label htmlFor="email">Email: </label>
+                <input 
+                  id="email"
+                  type="email" 
+                  placeholder="Ingrese el email"/>
+
+
               <label htmlFor="name">Nombre: </label>
               <input 
                 id="name"
@@ -66,22 +100,10 @@ const AddUser = (props) =>{
                 </select>
               </label>
 
-              <label htmlFor="email">Email: </label>
-              <input 
-                id="email"
-                type="email" 
-                placeholder="Ingrese el email"/>
-              
-              <label htmlFor="password">Contraseña: </label>
-
-              <input 
-                id="password"
-                type="password" 
-                placeholder="Ingrese la contraseña"/>
-
             </div>
             
-            <button className='register-button' type="submit">Añadir usuario</button>
+            <button className='register-button' type="submit">Modificar usuario</button>
+            
 
           </form> 
 
@@ -96,4 +118,4 @@ const AddUser = (props) =>{
           
 }
 
-export default AddUser
+export default ModifyUser
