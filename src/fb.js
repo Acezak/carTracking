@@ -1,5 +1,6 @@
 import firebase from "firebase/compat/app"
 import "firebase/compat/auth"
+import 'firebase/compat/firestore'
 
 export const app = firebase.initializeApp({
     "projectId": "cartrack-da6ca",
@@ -10,3 +11,5 @@ export const app = firebase.initializeApp({
     "messagingSenderId": "921615349423",
     "measurementId": "G-FGRVJSKCXE"
   });
+
+export  const db = app.firestore();

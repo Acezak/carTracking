@@ -1,28 +1,41 @@
-import React, { Component } from 'react';
-import { app } from "./fb";
+import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './stylesheets/Map.css';
+import { getFirestore, collection} from 'firebase/firestore';
+import { app, db } from './fb';
+import firebase from "firebase/compat/app"
+import 'firebase/firestore';
 
-const Maps = () =>{
+const markersRef = db.collection('vehicles');
 
-  const markers = [
-    {
-      geocode: [6.217, -75.567],
-      popUp: "Placa: FIX 492, Conductor: Juan Acevedo"
-    },
 
-    {
-      geocode: [4.60971, -74.08175],
-      popUp: "Placa: FIX 599, Conductor: Mariana castro"
-    },
+const Maps = () => {
+  const [markers, setMarkers] = useState([]);
 
-    {
-      geocode: [3.43722, -76.5225],
-      popUp: "Placa: FIX 471, Conductor: Irma sánchez"
-    },
-  ];
+  useEffect(() => {
+
+    const unsubscribe = markersRef.onSnapshot((querySnapshot) => {
+      const markers = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.status == "onDuty"){
+          markers.push({
+            id: data.plate,
+            position: data.location,
+            popUp: 'Placa: '+data.plate+', Conductor: '+data.driverId,
+          });
+        }
+        
+      });
+      setMarkers(markers);
+    });
+  
+    // Devuelve una función de limpieza que se ejecuta cuando el componente se desmonta
+    return () => unsubscribe();
+  }, []);
+  
 
   const customIcon =new Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/512/10000/10000307.png",
@@ -33,7 +46,7 @@ const Maps = () =>{
     <div className="general">
       <div className="supView">
           <h1 className="statText"> Seguimiento vehicular </h1>
-          <a href="/">;
+          <a href="/">
             <button className="signOutButton"> Regresar </button>
           </a>
       </div>
@@ -45,22 +58,15 @@ const Maps = () =>{
             url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
 
-          {markers.map(marker => (
-            <Marker position={marker.geocode} icon={customIcon}>
-              <Popup>
-                {marker.popUp}
-              </Popup>
-
+          {markers.map((marker) => (
+            <Marker key={marker.id} position={marker.position} icon={customIcon}>
+              <Popup>{marker.popUp}</Popup>
             </Marker>
-
-          ))
-          }
+          ))}
         </MapContainer>
-
       </div>
-
     </div>  
   )
 }
 
-export default Maps
+export default Maps;
