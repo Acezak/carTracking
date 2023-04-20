@@ -3,22 +3,24 @@ import './stylesheets/Auth.css'
 import {app} from "./fb"
 import { getFirestore, doc, getDoc } from'firebase/firestore'
 
+// Firesore init
 const firestore = getFirestore(app)
 
 const Login = (props) => { 
 
+  //user type search 
   async function getType(email){
     const docuRef = doc(firestore, 'users', email);
     const docu = await getDoc(docuRef);
+
     if (docu.exists()){
       const info = docu.data();
       const uType = info.userType;
       return uType;
+
     } else{
-      alert('Usuario no registrado o contraseña inválida')
-      
+      alert('Usuario no registrado o contraseña inválida')  
     }
-    
   }
   
   const submitHandler = async (e) => {
@@ -27,18 +29,20 @@ const Login = (props) => {
     const password = e.target.password.value
     const uType = await getType(email);
 
+    //user type validation
     if (uType == "Admin"){
+      //sign in method by firebase
       app.auth().signInWithEmailAndPassword(email,password).then((firebaseUser) =>{
         props.setUser(firebaseUser);
-  
       })
-    } else{
-      alert('Usted no tiene permisos de administrador, utilice la app móvil')
+    } else if (uType == "Driver"){
+      alert('No tiene permisos de administrador')
     }
   }
 
   return(
 
+    //rendering elements
     <div className='sign-in-container'>
       <img 
         className ='image'
@@ -70,15 +74,10 @@ const Login = (props) => {
           <button className='auth-button' type="submit">Ingresar</button>
 
         </form> 
-
       </div>
-
     </div>
-
-
   )
-  
-  
+
 }
 
 export default Login

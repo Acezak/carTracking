@@ -3,11 +3,10 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './stylesheets/Map.css';
-import { getFirestore, collection} from 'firebase/firestore';
-import { app, db } from './fb';
-import firebase from "firebase/compat/app"
+import { db } from './fb';
 import 'firebase/firestore';
 
+//import vehicles collection from firestore
 const markersRef = db.collection('vehicles');
 
 
@@ -16,8 +15,11 @@ const Maps = () => {
 
   useEffect(() => {
 
+    //real time update
     const unsubscribe = markersRef.onSnapshot((querySnapshot) => {
       const markers = [];
+
+      //draw markers for some vehicle on Duty
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         if (data.status == "onDuty"){
@@ -42,6 +44,9 @@ const Maps = () => {
     iconSize:[30, 30]
   })
 
+
+  //Leaflet map config
+  
   return(
     <div className="general">
       <div className="supView">
