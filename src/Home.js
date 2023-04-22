@@ -24,7 +24,7 @@ const Home = () =>{
       </div>
       <div className="principal">
         
-      <a href="/panel">
+      <Link to="/panel">
         <div className="layout">
           <img 
             className ='imagen'
@@ -34,9 +34,9 @@ const Home = () =>{
 
           <label className="textButton">Panel de control</label>
         </div>
-      </a>
+      </Link>
         
-      <a href="/map">
+      <Link to="/map">
         <div className="layout">
             <img 
                 className ='imagen'
@@ -46,7 +46,7 @@ const Home = () =>{
             <label className="textButton">Mapa</label>
 
         </div>
-      </a>     
+      </Link>     
       
       </div>
     </div>

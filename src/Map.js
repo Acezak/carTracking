@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import './stylesheets/Map.css';
 import { db } from './fb';
 import 'firebase/firestore';
+import { BrowserRouter, Link } from "react-router-dom";
 
 //import vehicles collection from firestore
 const markersRef = db.collection('vehicles');
@@ -51,9 +52,9 @@ const Maps = () => {
     <div className="general">
       <div className="supView">
           <h1 className="statText"> Seguimiento vehicular </h1>
-          <a href="/">
+          <Link to="/">
             <button className="signOutButton"> Regresar </button>
-          </a>
+          </Link>
       </div>
 
       <div className='mapContainer'>

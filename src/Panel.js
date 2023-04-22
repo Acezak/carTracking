@@ -1,25 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { app } from "./fb";
 import './stylesheets/Panel.css';
 import { Link } from "react-router-dom";
+import { db } from './fb';
+import 'firebase/firestore';
+import { UserComponent } from './UserComponent.js';
+import { VehicleComponent } from './VehicleComponent.js';
 
-const Panel = () =>{
+const userInfo = db.collection('users');
+const vehicleInfo = db.collection('vehicles');
 
-      return(
-        <div className="general">
-          <div className="supView">
-              <h1 className="statText"> Panel de control </h1>
-              <a href="/">
-                <button className="signOutButton"> Regresar </button>
-              </a>
-          </div>
+const Panel = () => {
+  const [users, setUsers] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
 
-          <div className="itemContainer">
+  useEffect(() => {
+    //real time update
+    const unsubscribe = userInfo.onSnapshot((querySnapshot) => {
+      const users = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setUsers(users);
+    });
 
+    const unsubscribeVehicles = vehicleInfo.onSnapshot((querySnapshot) => {
+      const vehicles = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setVehicles(vehicles);
+    });
+    // Devuelve una función de limpieza que se ejecuta cuando el componente se desmonta
+    return () => unsubscribe();
+    return () => unsubscribeVehicles();
+  }, []);
 
-            <a href="/panel/add_user">
-                  <button className="addButton"> Añadir usuario </button>
-            </a>
+  return (
+    <div className="general">
+
+      <div className="supView">
+          <h1 className="statText"> Seguimiento vehicular </h1>
+          <a href="/">
+            <button className="signOutButton"> Regresar </button>
+          </a>
+      </div>
+
+      <div className="itemContainer">
 
             <a href="/panel/modify_user">
                   <button className="addButton"> Modificar usuario </button>
@@ -36,10 +57,44 @@ const Panel = () =>{
             
 
           </div>
-    
-        </div>
-          
-    )
+
+      
+      <h2>Usuarios registrados</h2>
+
+      <div className="titles">
+        <p>Nombre</p>
+        <p>Identificación</p>
+        <p>Dirección de correo</p>
+        <p>Tipo de usuario</p>
+      </div>
+
+      {users.map(user => (
+        <UserComponent
+          key={user.id}
+          id={user.cc}
+          name={user.name}
+          email={user.email}
+          type={user.userType}
+        />
+      ))}
+
+      <Link to="/panel/add_user">
+        <button className="addButton"> Añadir usuario </button>
+      </Link>
+
+      <h2>Vehículos registrados</h2>
+      {vehicles.map(vehicle => (
+        <VehicleComponent
+          key={vehicle.id}
+          brand={vehicle.brand}
+          driverId={vehicle.driverId}
+          model={vehicle.model}
+          plate={vehicle.plate}
+          status={vehicle.status}
+        />
+      ))}
+    </div>
+  );
 }
 
-export default Panel
+export default Panel;

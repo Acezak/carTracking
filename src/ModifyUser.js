@@ -3,6 +3,7 @@ import React from "react";
 import { app } from "./fb";
 import { getFirestore, doc, setDoc, getDoc, deleteDoc } from'firebase/firestore'
 import './stylesheets/AddUser.css';
+import { BrowserRouter, Link } from "react-router-dom";
 
 //Init vars
 const firestore = getFirestore(app)
@@ -16,14 +17,13 @@ const ModifyUser = (props) =>{
     e.preventDefault();
     
     //Register variables
-    const email = e.target.email.value
     const name = e.target.name.value
     const cc = e.target.cc.value
     const userType = e.target.userType.value
 
-    
+    console.log(props.email)
 
-    const docuRef = doc(firestore, 'users', email);
+    const docuRef = doc(firestore, 'users', props.email);
     const docu = await getDoc(docuRef);
 
     if (docu.exists()){
@@ -42,11 +42,8 @@ const ModifyUser = (props) =>{
   const deleteRegister = async (e) => {
 
     e.preventDefault();
-    
-    //Register variables
-    const email = e.target.email.value
 
-    const docuRef = doc(firestore, 'users', email);
+    const docuRef = doc(firestore, 'users', props.email);
     const docu = await getDoc(docuRef);
 
     if (docu.exists()){
@@ -61,10 +58,10 @@ const ModifyUser = (props) =>{
   return(
     <div className="general">
       <div className="supView">
-        <h1 className="statText"> Añadir usuario </h1>
-        <a href="/panel">
+        <h1 className="statText"> Modificar elemento </h1>
+        <Link to="/panel">
           <button className="signOutButton"> Regresar </button>
-        </a>
+        </Link>
       </div>
 
 
@@ -74,17 +71,11 @@ const ModifyUser = (props) =>{
 
           <div className="item-container">
 
-              <label htmlFor="email">Email: </label>
-                <input 
-                  id="email"
-                  type="email" 
-                  placeholder="Ingrese el email"/>
-
-
               <label htmlFor="name">Nombre: </label>
               <input 
                 id="name"
                 type="text" 
+                value= {props.name}
                 placeholder="Ingrese el nombre"/>
 
                 <label htmlFor="cc">Documento de identidad: </label>

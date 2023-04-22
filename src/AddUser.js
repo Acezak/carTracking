@@ -1,14 +1,18 @@
 // Libraries
-import React from "react";
+import React, { useRef }from "react";
 import { app } from "./fb";
-import { getFirestore, doc, setDoc } from'firebase/firestore'
+import { getFirestore, doc, setDoc, getDoc } from'firebase/firestore'
 import './stylesheets/AddUser.css';
+import { Link } from "react-router-dom";
 
-//Init vars
+//Initialize firestore
 const firestore = getFirestore(app)
 
 // Component
 const AddUser = (props) =>{
+
+  // form reference
+  const formRef = useRef(null);
 
   //Registrer function
   const submitHandler = async (e) => {
@@ -22,15 +26,32 @@ const AddUser = (props) =>{
     const cc = e.target.cc.value
     const userType = e.target.userType.value
 
-    //User account with email and password
-    const userInfo = app.auth().createUserWithEmailAndPassword(email,password).then((firebaseUser) =>{
-
-    })
-
+    //reference to firebase collection for users
     const docuRef = doc(firestore, `users/${email}`);
-    setDoc(docuRef,{name:name, cc:cc, userType:userType, email:email});
 
-      }
+    //existence verification
+    const docu = await getDoc(docuRef);
+    if (docu.exists()){
+      alert("El usuario ya se encuentra registrado, no es posible crear un nuevo registro con el mismo email")
+      //reset form values
+      formRef.current.reset();
+      
+    }else{
+      //Create user account with email and password
+      app.auth().createUserWithEmailAndPassword(email,password)
+      //Create user register
+      setDoc(docuRef,{name:name, cc:cc, userType:userType, email:email}).then(()=>{
+        alert("Registro exitoso")
+        //reset form values
+        formRef.current.reset();
+      })
+      .catch(()=>{
+        alert("Ocurrió un problema con el registro")
+        formRef.current.reset();
+      }) 
+    }
+  }
+    
     
   return(
     <div className="general">
@@ -44,7 +65,7 @@ const AddUser = (props) =>{
 
       <div className='register-container'>
 
-          <form onSubmit={submitHandler}>
+          <form onSubmit={submitHandler} ref={formRef}>
 
           <div className="item-container">
               <label htmlFor="name">Nombre: </label>

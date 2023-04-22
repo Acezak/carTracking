@@ -1,0 +1,58 @@
+.generalLayout{
+    width: 95%;
+    margin: 10px;
+    padding: 5px;
+    
+    background-color: rgba(170, 177, 216, 0.185);
+    border-radius: 20px;
+    font-size: 15px;
+    font-family: Lato, sans-serif;
+
+}
+
+.horizontalLayout{
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    justify-content: center;
+    align-items: center;
+}
+
+.idLayout{
+    width:10%;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+}
+
+.nameLayout{
+    width:30%;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+}
+
+.emailLayout{
+    width:20%;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+}
+
+.typeLayout{
+    width: 20%;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+}
+
+p{
+    display: contents;
+}
+
+button{
+    width: 10%;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+}
