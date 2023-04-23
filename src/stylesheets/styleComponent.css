@@ -1,0 +1,79 @@
+.generalLayout{
+    width: 95%;
+    margin: 10px;
+    padding: 5px;
+    
+    background-color: rgba(170, 177, 216, 0.185);
+    border-radius: 20px;
+    font-size: 15px;
+    font-family: Lato, sans-serif;
+
+}
+
+.horizontalLayout{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 95%;
+    justify-content: center;
+    align-items: center;
+}
+
+.valLayout{
+    width:20%;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.editButton{
+    width: 20%;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+}
+
+.deleteButton{
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    background-color: rgb(2, 2, 41);
+    color: white;
+}
+
+.deleteButton:hover{
+
+    background-color: rgb(255, 0, 0);
+
+}
+
+.valvhLayout{
+    width:20%;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.editvhButton{
+    width: 20%;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+}
+
+.deletevhButton{
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    background-color: rgb(2, 2, 41);
+    color: white;
+}
+
+.deletevhButton:hover{
+
+    background-color: rgb(255, 0, 0);
+
+}

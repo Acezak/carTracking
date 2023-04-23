@@ -57,9 +57,9 @@ const AddUser = (props) =>{
     <div className="general">
       <div className="supView">
         <h1 className="statText"> Añadir usuario </h1>
-        <a href="/panel">
+        <Link to="/panel">
           <button className="signOutButton"> Regresar </button>
-        </a>
+        </Link>
       </div>
 
 

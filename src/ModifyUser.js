@@ -3,13 +3,17 @@ import React from "react";
 import { app } from "./fb";
 import { getFirestore, doc, setDoc, getDoc, deleteDoc } from'firebase/firestore'
 import './stylesheets/AddUser.css';
-import { BrowserRouter, Link } from "react-router-dom";
+import {  useLocation, Link, useHistory } from "react-router-dom";
 
 //Init vars
 const firestore = getFirestore(app)
 
 // Component
-const ModifyUser = (props) =>{
+const ModifyUser = () =>{
+
+  const history = useHistory()
+  const loc = useLocation();
+  const data = loc.state;
 
   //Registrer function
   const submitHandler = async (e) => {
@@ -17,13 +21,22 @@ const ModifyUser = (props) =>{
     e.preventDefault();
     
     //Register variables
-    const name = e.target.name.value
-    const cc = e.target.cc.value
-    const userType = e.target.userType.value
+    var name = e.target.name.value
+    var cc = e.target.cc.value
+    var userType = e.target.userType.value
 
-    console.log(props.email)
+    if (name == ""){
+      name = data.name
+    }
 
-    const docuRef = doc(firestore, 'users', props.email);
+    if (cc == ""){
+      cc = data.id
+    }
+
+    
+
+    
+    const docuRef = doc(firestore, 'users', data.email);
     const docu = await getDoc(docuRef);
 
     if (docu.exists()){
@@ -32,24 +45,13 @@ const ModifyUser = (props) =>{
         cc:cc,
         userType:userType
       },{merge:true});
+
+      alert("Modificación exitosa")
+      history.goBack();
+
     } else{
       alert('El usuario no existe, realice primero su registro')
-      
-    }
-
-  }
-
-  const deleteRegister = async (e) => {
-
-    e.preventDefault();
-
-    const docuRef = doc(firestore, 'users', props.email);
-    const docu = await getDoc(docuRef);
-
-    if (docu.exists()){
-      await deleteDoc(docuRef);
-    } else{
-      alert('El usuario no existe')
+      history.goBack();
       
     }
 
@@ -75,14 +77,13 @@ const ModifyUser = (props) =>{
               <input 
                 id="name"
                 type="text" 
-                value= {props.name}
-                placeholder="Ingrese el nombre"/>
+                placeholder={data.name}/>
 
                 <label htmlFor="cc">Documento de identidad: </label>
                 <input 
                   id="cc"
                   type="number" 
-                  placeholder="Ingrese el número de cc"/>
+                  placeholder={data.id}/>
               
               <label htmlFor="userType">Rol: 
                 <select id="userType">
@@ -110,3 +111,4 @@ const ModifyUser = (props) =>{
 }
 
 export default ModifyUser
+
