@@ -4,7 +4,7 @@ import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { db } from './fb';
 import 'firebase/firestore';
-import { useHistory, Link } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
 //Style
 import './stylesheets/Map.css';
@@ -27,7 +27,7 @@ const Maps = () => {
       //draw markers for some vehicle on Duty
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.status == "onDuty"){
+        if (data.status === "onDuty"){
           markers.push({
             id: data.plate,
             position: data.location,

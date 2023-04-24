@@ -29,7 +29,7 @@ const AddVehicle = () =>{
     const status = 'free'
     const driverId = 0
 
-      if (model == "" || brand == "" || plate == "" ){
+      if (model === "" || brand === "" || plate === "" ){
         alert("Debe completar todos los datos antes de continuar")
 
       } else{

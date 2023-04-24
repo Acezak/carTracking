@@ -26,11 +26,11 @@ const ModifyUser = () =>{
     var cc = e.target.cc.value
     var userType = e.target.userType.value
 
-    if (name == ""){
+    if (name === ""){
       name = data.name
     }
 
-    if (cc == ""){
+    if (cc === ""){
       cc = data.id
     }
 

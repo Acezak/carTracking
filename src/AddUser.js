@@ -26,7 +26,7 @@ const AddUser = () =>{
     const cc = e.target.cc.value
     const userType = e.target.userType.value
 
-    if (email == "" || password == "" || name == "" || cc == "" || userType == "Default"){
+    if (email === "" || password === "" || name === "" || cc === "" || userType === "Default"){
       alert("Debe completar todos los datos antes de continuar")
     
     }else{

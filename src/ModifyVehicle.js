@@ -27,11 +27,11 @@ const ModifyVehicle = () =>{
     var brand = e.target.brand.value
     var model = e.target.model.value  
     
-    if (brand == ""){
+    if (brand === ""){
       brand = data.brand
     }
 
-    if (model == ""){
+    if (model === ""){
       model = data.model
     }
 
