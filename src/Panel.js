@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import './stylesheets/Panel.css';
-import { Link } from "react-router-dom";
+import {Link, useHistory } from "react-router-dom";
 import { db } from './fb';
 import 'firebase/firestore';
 import { UserComponent } from './UserComponent.js';
 import { VehicleComponent } from './VehicleComponent.js';
+
+//Style
+import './stylesheets/Panel.css';
 
 //User firebase collection
 const userInfo = db.collection('users');
@@ -12,6 +14,9 @@ const userInfo = db.collection('users');
 const vehicleInfo = db.collection('vehicles');
 
 const Panel = () => {
+
+  //History router
+  const history = useHistory()
 
   //States to collect
   const [users, setUsers] = useState([]);
@@ -40,9 +45,8 @@ const Panel = () => {
 
       <div className="supView">
           <h1 className="statText"> Panel de administración </h1>
-          <Link to="/">
-            <button className="signOutButton"> Regresar </button>
-          </Link>
+          <button className="signOutButton" onClick ={history.goBack}> Regresar </button>
+          
       </div>
     
       <div className="itemContainer">

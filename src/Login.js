@@ -35,6 +35,9 @@ const Login = (props) => {
       app.auth().signInWithEmailAndPassword(email,password).then((firebaseUser) =>{
         props.setUser(firebaseUser);
       })
+      .catch(()=>{
+        alert("Ocurrió un problema con la autenticación")
+      }) 
     } else if (uType == "Driver"){
       alert('No tiene permisos de administrador')
     }

@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 export function VehicleComponent (props){
 
     //Import props values to vars
-    const data = {plate : props.plate, model : props.model, brand : props.brand}
+    const data = {plate : props.plate, model : props.model, brand : props.brand, status : props.status}
     const history = useHistory();
 
     //On click event

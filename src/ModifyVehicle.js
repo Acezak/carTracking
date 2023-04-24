@@ -1,25 +1,26 @@
 import React from "react";
 import { app } from "./fb";
 import { getFirestore, doc, setDoc, getDoc, deleteDoc } from'firebase/firestore'
-import './stylesheets/AddUser.css';
-import {  useLocation, Link, useHistory } from "react-router-dom";
+import {  useLocation, useHistory } from "react-router-dom";
 
+//style
+import './stylesheets/Comp.css';
 
-//Init vars
+//Init vars and const
 const firestore = getFirestore(app)
 
 // Component
 const ModifyVehicle = () =>{
 
+  //History router
   const history = useHistory()
+
+  //Prev. data capture
   const loc = useLocation();
   const data = loc.state;
-  
-  console.log(data)
 
-  //Registrer function
-  const submitHandler = async (e) => {
-
+  //Modify register function
+  const modifyRegister = async (e) => {
     e.preventDefault();
     
     //Register variables
@@ -34,7 +35,10 @@ const ModifyVehicle = () =>{
       model = data.model
     }
 
+    //Firebase collection
     const docuRef = doc(firestore, 'vehicles', data.plate);
+    
+    //Existence verification and firebase modify method
     const docu = await getDoc(docuRef);
 
     if (docu.exists()){
@@ -53,61 +57,67 @@ const ModifyVehicle = () =>{
 
   }
 
+  //Delete register function
   const deleteRegister = async (e) => {
-
     e.preventDefault();
   
+    //Firebase collection
     const docuRef = doc(firestore, 'vehicles', data.plate);
+    
+    //Existence verification and firebase delete method
     const docu = await getDoc(docuRef);
   
     if (docu.exists()){
-      await deleteDoc(docuRef);
-      alert("Vehículo eliminado")
-      history.goBack();
+      if (data.status == "free"){
+        await deleteDoc(docuRef);
+        alert("Vehículo eliminado")
+        history.goBack();
+      } else{
+        alert("El vehículo se encuentra en uso, no es posible eliminarlo")
+      }
+
     } else{
-      alert('El usuario no existe')
+      alert('El vehículo no existe')
       history.goBack();
-      
     }
-  
   }
-    
+   
+  //Graph comp
   return(
     <div className="general">
       <div className="supView">
-        <h1 className="statText"> Modificar elemento </h1>
-        <Link to="/panel">
-          <button className="signOutButton"> Regresar </button>
-        </Link>
+        <h1 className="statText"> Modificar vehículo </h1>
+        <button className="goBackButton" onClick ={history.goBack}> Regresar </button>
       </div>
-
 
       <div className='register-container'>
 
-          <form onSubmit={submitHandler}>
+        <form onSubmit={modifyRegister}>
 
           <div className="item-container">
 
-              <label htmlFor="brand">Marca: </label>
-                <input 
-                  id="brand"
-                  type="text" 
-                  placeholder={data.brand}/>
+            <div className="vertInput">
+            <label htmlFor="brand">Marca</label>
+              <input 
+                id="brand"
+                type="text" 
+                placeholder={data.brand}/>
+            </div>
 
-
-              <label htmlFor="model">Modelo: </label>
+            <div className="vertInput">
+            <label htmlFor="model">Modelo</label>
               <input 
                 id="model"
                 type="text" 
                 placeholder={data.model}/>
-
-
             </div>
-            
-            <button className='register-button' type="submit">Modificar usuario</button>
-            <button className='register-button' onClick={deleteRegister}>eliminar</button>
 
-          </form> 
+          </div>
+            
+            <button className='register-button' type="submit">Modificar vehículo</button>
+            <button className='delete-button' onClick={deleteRegister}>Eliminar vehículo</button>
+
+        </form> 
 
         
 

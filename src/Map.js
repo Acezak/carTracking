@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import './stylesheets/Map.css';
 import { db } from './fb';
 import 'firebase/firestore';
-import { BrowserRouter, Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+
+//Style
+import './stylesheets/Map.css';
 
 //import vehicles collection from firestore
 const markersRef = db.collection('vehicles');
 
 
 const Maps = () => {
+  //history router
+  const history = useHistory()
   const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
@@ -35,11 +39,11 @@ const Maps = () => {
       setMarkers(markers);
     });
   
-    // Devuelve una función de limpieza que se ejecuta cuando el componente se desmonta
+    //Clean view
     return () => unsubscribe();
   }, []);
   
-
+  //Icon onDuty vehicles
   const customIcon =new Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/512/10000/10000307.png",
     iconSize:[30, 30]
@@ -47,14 +51,11 @@ const Maps = () => {
 
 
   //Leaflet map config
-  
   return(
     <div className="general">
       <div className="supView">
           <h1 className="statText"> Seguimiento vehicular </h1>
-          <Link to="/">
-            <button className="signOutButton"> Regresar </button>
-          </Link>
+          <button className="goBackButton" onClick ={history.goBack}> Regresar </button>
       </div>
 
       <div className='mapContainer'>
