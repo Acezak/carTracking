@@ -11,3 +11,5 @@ For the map is use Leaflet library that gives capacity of showing an interactive
 In the panel section you can see the information about all vehicles and users registered having the options of create, modify or eliminate the items, except the admin@admin account to prevent the page blocking.
 
 The information is manipulated with firestore utilities.
+
+The hosting URL is: https://cartrack-da6ca.web.app/
