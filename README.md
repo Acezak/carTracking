@@ -2,14 +2,14 @@
 
 ##Description
 
-I present the Car tracking web app using React framework for the development of an Admin environment tha allows create, modify, eliminate and visualize all the information about vehicles and users registered in the plataform.
+I present the Car tracking web application using the React framework for the development of an Admin environment that allows to create, modify, delete and view all the information about vehicles and users registered on the platform.
 
-First, in the authentication view you can introduce an email and password for log in page, the information is treated with firebase authentication utilities and only allows log in when the user have and admin type.
+Firstly, in the authentication view, an email and password are entered to access the page, the information is processed with the firebase authentication utilities and only allows access when the user has the admin type.
 
-For the map is use Leaflet library that gives capacity of showing an interactive map with tags with the vehicle´s plate and user's Id in case of the existence; with the use of Firebase firestore, all the data is real-time updated.
+For the map the Leaflet library is used which gives the ability to display an interactive map with labels with the vehicle number plate and the user ID if it exists; with the use of Firebase firestore all the data is updated in real time.
 
-In the panel section you can see the information about all vehicles and users registered having the options of create, modify or eliminate the items, except the admin@admin account to prevent the page blocking.
+In the dashboard section you can see the information of all vehicles and registered users having the options to create, modify or delete items, except for the admin@admin account to avoid blocking the page.
 
-The information is manipulated with firestore utilities.
+The information is manipulated with the firestore utilities.
 
 The hosting URL is: https://cartrack-da6ca.web.app/
