@@ -4,6 +4,8 @@ import { getFirestore, doc, setDoc, getDoc, deleteDoc } from'firebase/firestore'
 import './stylesheets/Comp.css';
 import {  useLocation, useHistory } from "react-router-dom";
 
+
+
 //Init vars and const
 const firestore = getFirestore(app)
 
@@ -34,7 +36,7 @@ const ModifyUser = () =>{
       cc = data.id
     }
 
-    if (userType == "Default"){
+    if (userType === "Default"){
       userType = data.type
     }
 
@@ -71,19 +73,21 @@ const ModifyUser = () =>{
     //Existence verification and firebase delete method
     const docu = await getDoc(docuRef);
 
-    if (data.email == "admin@admin.com"){
+    if (data.email === "admin@admin.com"){
       alert("No es posible eliminar este usuario")
     } else{
       if (docu.exists()){
         await deleteDoc(docuRef);
         alert("Usuario eliminado")
         history.goBack();
-  
+
       } else{
         alert('El usuario no existe')
         history.goBack();
       }
     }
+
+    
   }
     
   //Graph comp
