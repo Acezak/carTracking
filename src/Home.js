@@ -12,13 +12,10 @@ const Home = () =>{
   }
 
   return(
-
-    //rendering elements
     <div className="general">
       <div className="supView">
         <h1 className="statText"> Bienvenido </h1>
 
-        {/* method onClick to sign out button */}
         <button className="signOutButton" onClick={signOut}> Cerrar sesión </button>
 
       </div>
