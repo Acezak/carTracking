@@ -48,9 +48,7 @@ module.exports = () => {
       // otras opciones de configuración de webpack
       mode: isProduction ? 'production' : 'development',
       resolve: {
-        fallback: {
-          stream: require.resolve('stream-browserify')
-        }
+    
       }
     };
   
